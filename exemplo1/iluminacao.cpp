@@ -15,23 +15,23 @@ GLint especMaterial;
 
 void DefineIluminacao (void) 
 { 
-    GLfloat luzAmbiente[4]={0.2,0.2,0.2,1.0}; 
+    GLfloat luzAmbiente[4]={0.8,0.8,0.8,1.0}; 
     GLfloat luzDifusa[4]={0.7,0.7,0.7,1.0}; // "cor" 
     GLfloat luzEspecular[4]={1.0, 1.0, 1.0, 1.0};// "brilho" 
     GLfloat posicaoLuz[4]={0.0, 50.0, 50.0, 1.0}; 
     // Capacidade de brilho do material 
-    GLfloat especularidade[4]={1.0,1.0,1.0,1.0}; 
+    //GLfloat especularidade[4]={1.0,1.0,1.0,1.0}; 
     GLint especMaterial = 60; 
     // Define a refletância do material 
-    glMaterialfv(GL_FRONT,GL_SPECULAR, especularidade); 
+    //glMaterialfv(GL_FRONT,GL_SPECULAR, especularidade); 
     // Define a concentração do brilho 
-    glMateriali(GL_FRONT,GL_SHININESS,especMaterial); 
+    //glMateriali(GL_FRONT,GL_SHININESS,especMaterial); 
     // Ativa o uso da luz ambiente 
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luzAmbiente); 
     // Define os parâmetros da luz de número 0 
     glLightfv(GL_LIGHT0, GL_AMBIENT, luzAmbiente); 
     glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa ); 
-    glLightfv(GL_LIGHT0, GL_SPECULAR, luzEspecular ); 
+    //glLightfv(GL_LIGHT0, GL_SPECULAR, luzEspecular ); 
     glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz ); 
 } 
 
@@ -48,7 +48,51 @@ void Desenha(void)
 	glColor3f(0.0f, 0.0f, 1.0f);
 
 	// Desenha o teapot com a cor corrente (wire-frame)
-	glutSolidTeapot(50.0f);
+	//glutSolidTeapot(50.0f);
+	// Desenha um cubo 
+	glBegin(GL_POLYGON); // Face posterior 
+		glNormal3f(0,0,1); // Normal da face 
+		glVertex3f(50.0, 50.0, 50.0); 
+		glVertex3f(-50.0, 50.0, 50.0); 
+		glVertex3f(-50.0, -50.0, 50.0); 
+		glVertex3f(50.0, -50.0, 50.0); 
+	glEnd(); 
+	glBegin(GL_POLYGON); // Face frontal 
+		glNormal3f(0,0,-1); // Normal da face 
+		glVertex3f(50.0, 50.0, -50.0); 
+		glVertex3f(50.0, -50.0, -50.0); 
+		glVertex3f(-50.0, -50.0, -50.0); 
+		glVertex3f(-50.0, 50.0, -50.0); 
+	glEnd(); 
+	glBegin(GL_POLYGON); // Face lateral esquerda 
+		glNormal3f(-1,0,0); // Normal da face 
+		glVertex3f(-50.0, 50.0, 50.0); 
+		glVertex3f(-50.0, 50.0, -50.0); 
+		glVertex3f(-50.0, -50.0, -50.0); 
+		glVertex3f(-50.0, -50.0, 50.0); 
+	glEnd(); 
+	glBegin(GL_POLYGON); // Face lateral direita 
+		glNormal3f(1,0,0); // Normal da face 
+		glVertex3f(50.0, 50.0, 50.0); 
+		glVertex3f(50.0, -50.0, 50.0); 
+		glVertex3f(50.0, -50.0, -50.0); 
+		glVertex3f(50.0, 50.0, -50.0); 
+	glEnd(); 
+	glBegin(GL_POLYGON); // Face superior 
+		glNormal3f(0,1,0); // Normal da face 
+		glVertex3f(-50.0, 50.0, -50.0); 
+		glVertex3f(-50.0, 50.0, 50.0); 
+		glVertex3f(50.0, 50.0, 50.0); 
+		glVertex3f(50.0, 50.0, -50.0); 
+	glEnd(); 
+	glBegin(GL_POLYGON); // Face inferior 
+		glNormal3f(0,-1,0); // Normal da face 
+		glVertex3f(-50.0, -50.0, -50.0); 
+		glVertex3f(50.0, -50.0, -50.0); 
+		glVertex3f(50.0, -50.0, 50.0); 
+		glVertex3f(-50.0, -50.0, 50.0);
+	glEnd(); 
+
 
 	// Execu??o dos comandos de desenho
 	glutSwapBuffers();
